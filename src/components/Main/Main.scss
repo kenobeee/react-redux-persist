@@ -7,4 +7,14 @@ main {
   & > * {
     width: 50%;
   }
+
+  @media (max-width: 450px) {
+    flex-direction: column;
+
+    height: auto;
+
+    & > * {
+      width: 100%;
+    }
+  }
 }

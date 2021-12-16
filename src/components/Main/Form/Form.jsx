@@ -45,10 +45,10 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
     <section className="form-section" data-theme={currentNode.nodes.length > 0 ? 'whatsapp-theme' : 'facebook-theme'}>
       <div className="form-section__wrapper form">
 
-        <h2 className="form__title">New node</h2>
+        <h2 className="form__title theme-indicator">New node</h2>
 
         <div className="form__layer">
-          <label className="form__label" htmlFor="titleInput">Title</label>
+          <label className="form__label theme-indicator" htmlFor="titleInput">Title</label>
           <input
             className={`form__input valid-${isValidState.title}`}
             type="text" id="titleInput"
@@ -60,7 +60,7 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
         </div>
 
         <div className="form__layer">
-          <label className="form__label" htmlFor="routeInput">Route</label>
+          <label className="form__label theme-indicator" htmlFor="routeInput">Route</label>
           <input
             className={`form__input valid-${isValidState.route}`}
             type="text"
@@ -72,7 +72,13 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
           />
         </div>
 
-        <button className="form__submit" disabled={isValidState.button} onClick={handleSubmit}>Add node</button>
+        <button
+          className="form__submit theme-indicator"
+          disabled={isValidState.button}
+          onClick={handleSubmit}
+        >
+          Add node
+        </button>
 
       </div>
     </section>
