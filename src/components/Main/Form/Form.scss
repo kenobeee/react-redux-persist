@@ -1,0 +1,70 @@
+.form-section {
+  position: relative;
+
+  height: 100%;
+
+  &__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &[data-theme=whatsapp-theme] {
+    color: #43d854;
+  }
+  &[data-theme=facebook-theme] {
+    color: #3b5998;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 50px;
+
+  border-radius: 10px;
+
+  &__title {
+    font-size: 3em;
+    white-space: nowrap;
+  }
+
+  &__layer {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    margin-top: 10px;
+    padding: 5px;
+
+    &:first-child {
+      margin-top: 40px !important;
+    }
+  }
+
+  &__label {
+    font-weight: 600;
+  }
+
+  &__input {
+    margin-top: 8px;
+    padding: 2px 0;
+
+    border-bottom: 1px solid #dcdcdc;
+
+    &.valid-false {
+      border-color: #e00000;
+    }
+  }
+
+  &__submit {
+    margin-top: 20px;
+    padding: 10px 40px;
+
+    cursor: pointer;
+  }
+}
