@@ -79,7 +79,8 @@
     cursor: pointer;
     
     &[disabled] {
-      background-color: #7d7d7d !important; /* знаю, костыль */
+      background-color: #dddddd !important; /* знаю, костыль */
+      cursor: default;
     }
   }
 }

@@ -1,33 +1,27 @@
 import React from 'react';
-import {Provider} from 'react-redux';
-import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
-import {combineReducers, createStore} from "redux";
-
-import {newNodeReducer} from './reducers/newNodeReducer';
-import {treeReducer} from './reducers/treeReducer';
+import {Routes, Route, Navigate, useLocation} from "react-router-dom";
 
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Error from './components/Error/Error';
-
-const rootReducer = combineReducers({
-  NewNodeState: newNodeReducer,
-  treeState: treeReducer,
-});
-
-const store = createStore(rootReducer);
+import {useSelector} from "react-redux";
 
 export default function App() {
+
+  const myTree = useSelector(state => state.treeState.nodes);
+  const currentLocation = useLocation();
+  const currentNode = myTree.filter(node => (
+    node.route === currentLocation.pathname
+  ))[0] ?? myTree[0]
+
   return (
-    <Provider store={store}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="main/*" element={<Main />} />
-          <Route path='/' element={<Navigate to='/main' />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </Router>
-    </Provider>
+    <>
+      <Header currentNode={currentNode} />
+      <Routes>
+        <Route path="main/*" element={<Main currentNode={currentNode} />} />
+        <Route path='/' element={<Navigate to='/main' />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </>
   );
 }
