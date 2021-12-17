@@ -4,6 +4,8 @@
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  white-space: nowrap;
 }
 
 body { font-size: 16px; }
@@ -19,12 +21,14 @@ input, button, textarea {
   border: none;
 }
 
+h2 {
+  font-size: 2.5em;
+}
+
 .container {
   width: 90%;
 
   margin: 0 auto;
 }
 
-.theme-indicator {
-  transition: .3s;
-}
+.theme-indicator { transition: .3s; }

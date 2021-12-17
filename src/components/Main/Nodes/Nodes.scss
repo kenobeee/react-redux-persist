@@ -2,10 +2,6 @@
   position: relative;
   height: 100%;
 
-  @media (max-width: 450px) {
-    position: static;
-  }
-
   &__wrapper {
     position: absolute;
     top: 50%;
@@ -14,10 +10,7 @@
   }
 
   &__item {
-    padding: 5px 20px;
     margin-top: 5px;
-
-    border: 1px solid;
 
     color: #7d7d7d;
     text-align: center;
@@ -25,5 +18,11 @@
     &:first-child {
       margin-top: 0;
     }
+  }
+
+  &__link {
+    border: 1px solid;
+
+    padding: 5px 20px;
   }
 }

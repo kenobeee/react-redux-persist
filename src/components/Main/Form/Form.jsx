@@ -12,7 +12,7 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
   const [isValidState, setValidState] = useState({
     title: true,
     route: true,
-    button: false,
+    button: true,
   });
 
   const handleInput = event => {
@@ -24,9 +24,16 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
       pattern = inputValue.replace(/[^A-Za-zА-Яа-я]/g,'') :
       pattern = inputValue.replace(/[^a-z]/g,'');
 
-    pattern === inputValue ?
-      setValidState({...isValidState, [inputName]: true, button: false}) :
+    if (
+      inputValue === pattern &&
+      formState.title &&
+      formState.route &&
+      inputValue
+    ) {
+      setValidState({...isValidState, [inputName]: true, button: false})
+    } else {
       setValidState({...isValidState, [inputName]: false, button: true});
+    }
 
     dispatch(updateNewNodeState([event.target.name, event.target.value], currentNode, currentLocation));
     setFormState({...formState, [event.target.name]: event.target.value});
