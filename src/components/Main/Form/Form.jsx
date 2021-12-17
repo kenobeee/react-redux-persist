@@ -9,7 +9,7 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
     title: '',
     route: '',
   });
-  const [isValidState, setValidState] = useState({
+  const [isValid, setIsValid] = useState({
     title: true,
     route: true,
     button: true,
@@ -20,23 +20,35 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
     const inputName = event.target.name;
     const inputValue = event.target.value;
 
+    dispatch(updateNewNodeState([inputName, inputValue], currentNode, currentLocation));
+    setFormState({...formState, [inputName]: inputValue});
+
     inputName === 'title' ?
       pattern = inputValue.replace(/[^A-Za-zА-Яа-я]/g,'') :
       pattern = inputValue.replace(/[^a-z]/g,'');
 
-    if (
-      inputValue === pattern &&
-      formState.title &&
-      formState.route &&
-      inputValue
-    ) {
-      setValidState({...isValidState, [inputName]: true, button: false})
+    if (inputValue === pattern) {
+      setIsValid({...isValid, [inputName]: true, button: false})
+      if (
+        inputValue !== '' &&
+        inputName === 'title' &&
+        formState.route !== '' &&
+        isValid.route
+      ) {
+        setIsValid({...isValid, [inputName]: true, button: false})
+      } else if (
+        inputValue !== '' &&
+        inputName === 'route' &&
+        formState.title !== '' &&
+        isValid.title
+      ) {
+        setIsValid({...isValid, [inputName]: true, button: false})
+      } else {
+        setIsValid({...isValid, [inputName]: true, button: true})
+      }
     } else {
-      setValidState({...isValidState, [inputName]: false, button: true});
+      setIsValid({...isValid, [inputName]: false, button: true});
     }
-
-    dispatch(updateNewNodeState([event.target.name, event.target.value], currentNode, currentLocation));
-    setFormState({...formState, [event.target.name]: event.target.value});
   }
 
   const handleSubmit = () => {
@@ -57,7 +69,7 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
         <div className="form__layer">
           <label className="form__label theme-indicator" htmlFor="titleInput">Title</label>
           <input
-            className={`form__input valid-${isValidState.title}`}
+            className={`form__input valid-${isValid.title}`}
             type="text" id="titleInput"
             value={formState.title}
             name="title"
@@ -69,7 +81,7 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
         <div className="form__layer">
           <label className="form__label theme-indicator" htmlFor="routeInput">Route</label>
           <input
-            className={`form__input valid-${isValidState.route}`}
+            className={`form__input valid-${isValid.route}`}
             type="text"
             id="routeInput"
             value={formState.route}
@@ -81,7 +93,7 @@ export default function Form({newNode, currentNode, dispatch, currentLocation}) 
 
         <button
           className="form__submit theme-indicator"
-          disabled={isValidState.button}
+          disabled={isValid.button}
           onClick={handleSubmit}
         >
           Add node
